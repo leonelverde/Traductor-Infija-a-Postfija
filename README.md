@@ -1,5 +1,5 @@
-# **Traductor Infija a Postfija con Autómata de Pila (Algoritmo Shunting-Yard)**
----
+# Traductor Infija a Postfija con Autómata de Pila (Algoritmo Shunting-Yard)
+
 ## **¿De qué trata el proyecto?**
 ---
 El proyecto que realizaremos en Python se encargará de convertir las expresiones infijas (Notación natural, la que usamos comúnmente) a postfijas (Notación donde los operadores van después de los operandos) 
@@ -11,6 +11,7 @@ Para resumir, lo que buscaremos es que el programa analice la expresión en nota
 
 ---
 ## **Plan del proyecto**
+
 Seguiremos los siguientes pasos para desarrollar el proyecto:
 
 * Definir los tokens:  
@@ -18,8 +19,8 @@ Seguiremos los siguientes pasos para desarrollar el proyecto:
   
 * Crear las estructuras base:  
   Lo haremos con dos listas en Python:  
-    -Una para el resultado en notaciòn postfija  
-    -Otra que sería la pila donde se guardarán operadores y paréntesis.  
+    * Una para el resultado en notaciòn postfija  
+    * Otra que sería la pila donde se guardarán operadores y paréntesis.  
 * Establecer la prioridad de los operadores:  
   Esto sería una pequeña tabla para indicar que * y / tienen más prioridad que + y -.  
 * Implementar las reglas principales del método:  
