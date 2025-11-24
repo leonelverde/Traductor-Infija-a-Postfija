@@ -1,8 +1,14 @@
 # Traductor Infija a Postfija con Autómata de Pila (Algoritmo Shunting-Yard)
-
-## **¿De qué trata el proyecto?**
 ---
-El proyecto que realizaremos en Python se encargará de convertir las expresiones infijas (Notación natural, la que usamos comúnmente) a postfijas (Notación donde los operadores van después de los operandos) 
+## **Integrantes** 
+- Chamorro Figueroa, Andy Aaron
+- Sánchez Mendoza, Diego Joaquín
+- Verde Jara, Leonel Edwuar
+- Zapata LLaxa, Jorge Andrés
+
+---
+## **Descripción del proyecto**
+El proyecto que realizaremos en C++ se encargará de convertir las expresiones infijas (Notación natural, la que usamos comúnmente) a postfijas (Notación donde los operadores van después de los operandos) 
 
 Para esto usaremos el método “Shunting-Yard” creado por el científico en computación Edsger Dijkstra. Su nombre significa “Estación de clasificación” esto es así por su forma en la que hace que los operadores y paréntesis 
 se muevan de manera que respeten la precedencia correcta.
@@ -35,7 +41,15 @@ El funcionamiento del algoritmo Shunting-Yard se relaciona adecuadamente con las
 - **La salida se obtiene mientras se utiliza la pila**:
   Puede generar cadenas (autómata de pila con salida) como un AP.
 
-
+---
+## **Lógica del Algoritmo Shunting-Yard**
+El programa debe iterar sobre los tokens de entrada de izquierda a derecha, aplicando las siguientes reglas clave de simulación del Autómata de Pila.  
+| Token de entrada | Regla de transición (AP) |
+| --- | --- |
+| Operando (número) | Enviar directamente a la cola de salida |
+| Paréntesis de apertura '(' | PUSH a la Pila de Operadores |
+| Paréntesis de cierre ')' | Hacer POP de operadores de la pila a la cola de salida hasta encontrar el paréntesis de apertura. Descartar ambos paréntesis. |
+| Operador ( +, -, *, / ) | Hacer POP de operadores de la pila a la cola de salida mientras el operador en la cima de la pila tenga mayor o igual precedencia que el operador entrante. Luego PUSH del operador entrante. |
 
 ---
 ## **Plan del proyecto**
@@ -46,11 +60,17 @@ Seguiremos los siguientes pasos para desarrollar el proyecto:
   Veremos qué elementos aceptara el programa en este caso serían números, operadores (+ - * /) y paréntesis.  
   
 * Crear las estructuras base:  
-  Lo haremos con dos listas en Python:  
+  Lo haremos con dos listas en C++:  
     * Una para el resultado en notaciòn postfija  
     * Otra que sería la pila donde se guardarán operadores y paréntesis.  
 * Establecer la prioridad de los operadores:  
-  Esto sería una pequeña tabla para indicar que * y / tienen más prioridad que + y -.  
+  Esto sería una pequeña tabla para indicar que * y / tienen más prioridad que + y -.
+  | Operadores | Prioridad |
+  | --- | --- |
+  | / | 2 |
+  | * | 2 |
+  | + | 1 |
+  | - | 1 |
 * Implementar las reglas principales del método:  
   Hacer que el programa siga el método Shunting-Yard. Esto incluye decidir qué hacer cuando aparece un número, un operador o un paréntesis.  
 * Hacer pruebas:  
@@ -58,4 +78,16 @@ Seguiremos los siguientes pasos para desarrollar el proyecto:
 * Intentar con expresiones erróneas:  
   Detectar expresiones incorrectas, como paréntesis sin cerrar.  
 * Preparar el informe final:  
-  Explicar cómo funciona el programa, cómo se usa y el código.  
+  Explicar cómo funciona el programa, cómo se usa y el código.
+
+  ---
+  ## **Ejemplos de ejecución**
+
+  **Ejemplo 1.**
+  El usuario ingresa una cadena con notación infija: (2 + 3) * 5 + 3  
+  El resultado en notación posfija que debe retornae el algoritmo es: 2 3 + 5 * 3 +
+
+  **Ejemplo 2.**
+  El usuario ingresa una cadena errónea: 2 + 3) * 5  
+  El programa debe mostrarle un mensaje de error al usuario: ¡ERROR! No se encontró un parentesis de apertura para ')', por lo tanto, la cadena es rechazada.
+  
