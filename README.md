@@ -80,14 +80,78 @@ Seguiremos los siguientes pasos para desarrollar el proyecto:
 * Preparar el informe final:  
   Explicar cómo funciona el programa, cómo se usa y el código.
 
-  ---
-  ## **Ejemplos de ejecución**
+---
+## **Ejemplos de ejecución**
 
-  **Ejemplo 1.**
-  El usuario ingresa una cadena con notación infija: (2 + 3) * 5 + 3  
-  El resultado en notación posfija que debe retornae el algoritmo es: 2 3 + 5 * 3 +
+**Ejemplo 1.**
+El usuario ingresa una cadena con notación infija: (2 + 3) * 5 + 3  
+El resultado en notación posfija que debe retornae el algoritmo es: 2 3 + 5 * 3 +
 
-  **Ejemplo 2.**
-  El usuario ingresa una cadena errónea: 2 + 3) * 5  
-  El programa debe mostrarle un mensaje de error al usuario: ¡ERROR! No se encontró un parentesis de apertura para ')', por lo tanto, la cadena es rechazada.
-  
+**Ejemplo 2.**
+El usuario ingresa una cadena errónea: 2 + 3) * 5  
+El programa debe mostrarle un mensaje de error al usuario: ¡ERROR! No se encontró un parentesis de apertura para ')', por lo tanto, la cadena es rechazada.
+
+---
+## **Entrada/Salida en el programa**
+
+  El presente programa recibe como entrada(input) dos archivos de texto, el primero tendrá como contenido la notación infija que quiere convertir, cabe recalcar que el programa ignora los espacios, por lo tanto acepta tanto `4 + 3 * ( 5 + 7 )` como `4+3*(5+7)`; el segundo archivo de entrada será el archivo de salida en el cuál se mostrará tanto el resultado como el procedimiento de la conversión. Puede usar el mismo archivo para la entrada y salida, pero tiene que saber que si hace esto, el archivo de salida se sobreescribirá
+
+     int main(){
+        setlocale(LC_ALL, "");
+        string inputFileName, outputFileName;
+    
+        cout<<"Ingrese el nombre del archivo de entrada: ";
+        getline(cin, inputFileName);
+
+        cout<<"Ingrese el nombre del archivo de salida: ";
+        getline(cin, outputFileName);
+
+        // Abrir archivo de entrada
+        ifstream inputFile(inputFileName);
+        if (!inputFile.is_open()) {
+            cerr<<"Error: No se pudo abrir el archivo de entrada '"<<inputFileName<<"'"<<endl;
+            return 1;
+        }
+
+        // Leer la expresión infija
+        string expr;
+        getline(inputFile, expr);
+        inputFile.close();
+
+        if (expr.empty()) {
+            cerr<<"Error: El archivo de entrada está vacío"<<endl;
+            return 1;
+        }
+
+        // Abrir archivo de salida
+        ofstream outputFile(outputFileName);
+        if (!outputFile.is_open()) {
+            cerr<<"Error: No se pudo crear el archivo de salida '"<<outputFileName<<"'"<<endl;
+            return 1;
+        }
+
+        // Escribir encabezado en el archivo de salida
+        outputFile<<"----------------------------------------"<<endl;
+        outputFile<<"ALGORITMO SHUNTING YARD"<<endl;
+        outputFile<<"SIMULACIÓN DE AUTÓMATA DE PILA"<<endl;
+        outputFile<<"----------------------------------------"<<endl<<endl;
+        outputFile<<"Expresión infija de entrada: "<<expr<<endl;
+        outputFile<<"----------------------------------------"<<endl<<endl;
+
+        // Ejecutar el algoritmo y registrar pasos
+        string result = shuntingYard(expr, outputFile);
+
+        // Escribir resultado final
+        outputFile<<endl<<"----------------------------------------"<<endl;
+        outputFile<<"RESULTADO FINAL"<<endl;
+        outputFile<<"----------------------------------------"<<endl;
+        outputFile<<"Notación postfija: "<<result<<endl;
+
+        outputFile.close();
+
+        cout<<"Proceso completado exitosamente."<<endl;
+        cout<<"Revise el archivo '"<<outputFileName<<"' para ver los resultados."<<endl;
+
+        return 0;
+    } 
+
