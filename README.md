@@ -390,9 +390,9 @@ ERROR: Pila final contiene '(' → Paréntesis desbalanceados
 ---
 # **Simulación en JFLAP**  
 
-(https://raw.githubusercontent.com/leonelverde/Traductor-Infija-a-Postfija/refs/heads/main/JFLAP_infija_to_posfija.png)  
+![](https://raw.githubusercontent.com/leonelverde/Traductor-Infija-a-Postfija/refs/heads/main/JFLAP_infija_to_posfija.png)  
 
-...
+---
 # **Conclusiones**  
 
 
