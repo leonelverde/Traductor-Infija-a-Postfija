@@ -385,4 +385,15 @@ PASO    CONFIG. INICIAL          TRANSICIÓN APLICADA           CONFIG. FINAL   
 ERROR: Pila final contiene '(' → Paréntesis desbalanceados 
 ```
 
-**Resultado:**  **Expresión rechazada - Paréntesis sin cerrar**
+**Resultado:**  **Expresión rechazada - Paréntesis sin cerrar**  
+
+# **Conclusiones**  
+
+
+* **Traducción Eficiente (RPN):** El algoritmo Shunting-Yard transforma la expresión infija (ambigua) a **Notación Polaca Inversa (RPN)**, la cual es no ambigua y elimina la necesidad de tablas de precedencia para la evaluación computacional.
+
+* **Modelo AP Adecuado:** El diseño como **Autómata de Pila (AP)** es ideal. La **Pila de Operadores** es la herramienta clave para **gestionar y recordar la jerarquía de los operadores** y el orden de la expresión.
+
+* **Validación de Sintaxis:** El AP no solo traduce, sino que también funciona como un validador. Es capaz de **detectar automáticamente errores sintácticos**, como el **desbalanceo de paréntesis**, si al finalizar el proceso la pila no está vacía.
+
+* **Diseño Robusto:** Al formalizar las reglas de procesamiento como **Funciones de Transición ($\delta$)**, se logra un código C++ **modular, robusto y fácil de entender** que implementa correctamente la lógica de precedencia.
