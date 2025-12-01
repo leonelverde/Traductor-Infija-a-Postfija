@@ -387,6 +387,8 @@ ERROR: Pila final contiene '(' → Paréntesis desbalanceados
 
 **Resultado:**  **Expresión rechazada - Paréntesis sin cerrar**  
 
+---
+# **Simulación en JFLAP**
 # **Conclusiones**  
 
 
