@@ -7,7 +7,9 @@
 - Zapata LLaxa, Jorge Andrés
 
 ---
-## **Descripción del proyecto**
+## **Introducción**
+
+### **Descripción del proyecto**
 El proyecto que realizaremos en C++ se encargará de convertir las expresiones infijas (Notación natural, la que usamos comúnmente) a postfijas (Notación donde los operadores van después de los operandos) 
 
 Para esto usaremos el método “Shunting-Yard” creado por el científico en computación Edsger Dijkstra. Su nombre significa “Estación de clasificación” esto es así por su forma en la que hace que los operadores y paréntesis 
@@ -16,7 +18,7 @@ se muevan de manera que respeten la precedencia correcta.
 Para resumir, lo que buscaremos es que el programa analice la expresión en notación infija que el usuario le dé paso por paso cumpliendo la prioridad de los operadores y el uso de paréntesis pasando de infijas a postfijas.
 
 ---
-## **Necesidad de la traducción**
+### **Necesidad de la traducción**
 
 La principal razón por qué se necesita la traducción del algoritmo Shunting-Yard es porque las computadoras no son capaces de interpretar por sí mismas las expresiones que utilizamos generalmente los humanos. Nosotros escribimos en notación infija. 
 
@@ -25,7 +27,7 @@ Por ejemplo:	3 + 4 * (2 - 1)
 La notación infija requiere de reglas de precedencia como que la multiplicación se hace antes que la suma o que los paréntesis alteran el orden, llegando a ser ambiguas para las computadoras debido a que estas reglas no vienen “incluidas” en la expresión matemática, por lo tanto la computadora tendría que interpretarlas cada vez. Además que las traducciones directas desde infijo a código ejecutable son difíciles de realizar por los lenguajes de programación lo que llega a ser ineficiente y vulnerable a errores.
 
 ---
-## **El rol del algoritmo Shunting-Yard como un Autómata de Pila**
+### **El rol del algoritmo Shunting-Yard como un Autómata de Pila**
 
 El funcionamiento del algoritmo Shunting-Yard se relaciona adecuadamente con las características de un autómata de pila debido a las siguientes causas:
 
@@ -42,116 +44,345 @@ El funcionamiento del algoritmo Shunting-Yard se relaciona adecuadamente con las
   Puede generar cadenas (autómata de pila con salida) como un AP.
 
 ---
-## **Lógica del Algoritmo Shunting-Yard**
-El programa debe iterar sobre los tokens de entrada de izquierda a derecha, aplicando las siguientes reglas clave de simulación del Autómata de Pila.  
-| Token de entrada | Regla de transición (AP) |
-| --- | --- |
-| Operando (número) | Enviar directamente a la cola de salida |
-| Paréntesis de apertura '(' | PUSH a la Pila de Operadores |
-| Paréntesis de cierre ')' | Hacer POP de operadores de la pila a la cola de salida hasta encontrar el paréntesis de apertura. Descartar ambos paréntesis. |
-| Operador ( +, -, *, / ) | Hacer POP de operadores de la pila a la cola de salida mientras el operador en la cima de la pila tenga mayor o igual precedencia que el operador entrante. Luego PUSH del operador entrante. |
+## **Diseño del AP (Shunting-Yard)**
 
----
-## **Plan del proyecto**
+### **Estructuras**
 
-Seguiremos los siguientes pasos para desarrollar el proyecto:
+* **Pila de operadores (Stack)**  
 
-* Definir los tokens:  
-  Veremos qué elementos aceptara el programa en este caso serían números, operadores (+ - * /) y paréntesis.  
-  
-* Crear las estructuras base:  
-  Lo haremos con dos listas en C++:  
-    * Una para el resultado en notaciòn postfija  
-    * Otra que sería la pila donde se guardarán operadores y paréntesis.  
-* Establecer la prioridad de los operadores:  
-  Esto sería una pequeña tabla para indicar que * y / tienen más prioridad que + y -.
+*Declaración:*  
+
+```cpp
+stack<char> opStack;
+```  
+
+ *Propósito:* Almacenar temporalmente los operadores y paréntesis durante el procesamiento de la expresión infija, respetando la precedencia de operadores.  
+ *Operaciones utilizadas:*  
+1. `push (char operador)`: Apila un operador o paréntesis  
+```cpp
+opStack.push('+');  // Apila el operador +
+```
+2. `pop()`: Desapila el operador del tope (lo elimina)
+```cpp
+opStack.pop();  // Elimina el operador del tope
+```
+3. `top()`: Consulta el operador del tope sin eliminarlo
+```cpp
+char tope = opStack.top();  // Lee el tope sin desapilar
+```
+4. `empty()`: Verifica si la pila está vacía  
+```cpp
+if (opStack.empty()) { /* Pila vacía */ }
+```
+
+* **Cola de salida (Queue)**
+
+*Declaración:*
+
+```cpp
+queue<string> outputQueue;
+```
+
+  *Propósito:* Construir la expresión en notación postfija (RPN) agregando operandos y operadores en el orden correcto.  
+  *Operaciones utilizadas:*  
+1. `push (string elemento)`: Agrega un elemento al final de la cola  
+```cpp
+outputQueue.push("3");     // Agrega el número 3
+outputQueue.push("+");     // Agrega el operador +
+```
+2. `front()`: Consulta el primer elemento sin eliminarlo  
+```cpp
+string primero = outputQueue.front();
+```
+3. `pop()`: Elimina el primer elemento de la cola  
+```cpp
+outputQueue.pop();  // Elimina el primer elemento
+```
+4. `empty()`: Verifica si la cola está vacía  
+```cpp
+if (outputQueue.empty()) { /* Cola vacía */ }
+```
+### **Tabla de precedencia**  
+
+*Jerarquía de operadores:* Esto sería una pequeña tabla para indicar que * y / tienen más prioridad que + y -.
   | Operadores | Prioridad |
   | --- | --- |
   | / | 2 |
   | * | 2 |
   | + | 1 |
   | - | 1 |
-* Implementar las reglas principales del método:  
-  Hacer que el programa siga el método Shunting-Yard. Esto incluye decidir qué hacer cuando aparece un número, un operador o un paréntesis.  
-* Hacer pruebas:  
-  Ver si funciona correctamente con expresiones pequeñas, primero sin paréntesis y luego con ellos.  
-* Intentar con expresiones erróneas:  
-  Detectar expresiones incorrectas, como paréntesis sin cerrar.  
-* Preparar el informe final:  
-  Explicar cómo funciona el programa, cómo se usa y el código.
+
+*Implementación en el código:*  
+```cpp
+int precedence(char op) {
+    switch (op) {
+        case '+':
+        case '-': return 1;  // Menor precedencia
+        case '*':
+        case '/': return 2;  // Mayor precedencia
+    }
+    return 0; // No es operador
+}
+```  
+
+### **Funciones de transición**  
+
+### 1. Definición Formal del Autómata
+
+**M = (Q, Σ, Γ, δ, q0, Z0, F)**
+
+- **Q** = {q0, q1, qf} → Conjunto de estados
+- **Σ** = {números, +, -, *, /, (, )} → Alfabeto de entrada
+- **Γ** = {+, -, *, /, (, Z0} → Alfabeto de la pila
+- **δ** → Función de transición (ver tabla abajo)
+- **q0** → Estado inicial (lectura)
+- **Z0** → Símbolo inicial de la pila
+- **F** = {qf} → Estado final (aceptación)
 
 ---
-## **Ejemplos de ejecución**
 
-**Ejemplo 1.**
-El usuario ingresa una cadena con notación infija: (2 + 3) * 5 + 3  
-El resultado en notación posfija que debe retornae el algoritmo es: 2 3 + 5 * 3 +
+### 2. Estados del Autómata
 
-**Ejemplo 2.**
-El usuario ingresa una cadena errónea: 2 + 3) * 5  
-El programa debe mostrarle un mensaje de error al usuario: ¡ERROR! No se encontró un parentesis de apertura para ')', por lo tanto, la cadena es rechazada.
+| Estado | Descripción |
+|--------|-------------|
+| **q0** | Estado de lectura - Esperando leer el siguiente símbolo de entrada |
+| **q1** | Estado de procesamiento - Después de enviar un elemento a la cola de salida |
+| **qf** | Estado final - Vaciando la pila al terminar la entrada |
 
 ---
-## **Entrada/Salida en el programa**
 
-El presente programa recibe como entrada(input) dos archivos de texto,puede ingresar solo el nombre de los archivos si es que están en el mismo directorio que el ejecutable, o pueden ingresar la ruta absoluta de los archivos (recomendado); el primero tendrá como contenido la notación infija que quiere convertir, cabe recalcar que el programa ignora los espacios, por lo tanto acepta tanto `4 + 3 * ( 5 + 7 )` como `4+3*(5+7)`; el segundo archivo de entrada será el archivo de salida en el cuál se mostrará tanto el resultado como el procedimiento de la conversión. Puede usar el mismo archivo para la entrada y salida, pero tiene que saber que si hace esto, el archivo de salida se sobreescribirá.
+### 3. Tabla Resumen de Transiciones
 
-     int main(){
-        setlocale(LC_ALL, "");
-        string inputFileName, outputFileName;
-    
-        cout<<"Ingrese el nombre del archivo de entrada: ";
-        getline(cin, inputFileName);
+| Función | Estado Actual | Entrada | Tope Pila | Acción | Nuevo Estado | Nueva Pila |
+|---------|---------------|---------|-----------|--------|--------------|------------|
+| δ₁ | q0 | número | X | Enviar a cola | q1 | X |
+| δ₂ | q1 | ε | op | Desapilar a cola | q1 | X |
+| δ₃ | q1 | op | X | Apilar op | q0 | opX |
+| δ₄ | q0 | ( | X | Apilar ( | q0 | (X |
+| δ₅ | q0 | ) | op | Desapilar a cola | q0 | X |
+| δ₆ | q0 | ) | ( | Eliminar ( | q0 | X |
+| δ₇ | qf | ε | op | Desapilar a cola | qf | X |
 
-        cout<<"Ingrese el nombre del archivo de salida: ";
-        getline(cin, outputFileName);
+---
+### 4. Descripción Detallada de Transiciones
 
-        // Abrir archivo de entrada
-        ifstream inputFile(inputFileName);
-        if (!inputFile.is_open()) {
-            cerr<<"Error: No se pudo abrir el archivo de entrada '"<<inputFileName<<"'"<<endl;
-            return 1;
-        }
+#### δ₁: Procesamiento de Operandos
+```
+δ(q0, número, X) → (q1, X)
+```
+**Descripción:** Al leer un número, se envía directamente a la cola de salida. La pila permanece sin cambios.
 
-        // Leer la expresión infija
-        string expr;
-        getline(inputFile, expr);
-        inputFile.close();
+**Código:**
+```cpp
+if (isdigit(token)) {
+    outputQueue.push(number);
+    currentState = "q1";
+}
+```
 
-        if (expr.empty()) {
-            cerr<<"Error: El archivo de entrada está vacío"<<endl;
-            return 1;
-        }
+---
 
-        // Abrir archivo de salida
-        ofstream outputFile(outputFileName);
-        if (!outputFile.is_open()) {
-            cerr<<"Error: No se pudo crear el archivo de salida '"<<outputFileName<<"'"<<endl;
-            return 1;
-        }
+#### δ₂: Desapilar Operadores (POP Condicional)
+```
+δ(q1, ε, op) → (q1, X)
+```
+**Descripción:** Desapila operadores de mayor o igual precedencia y los envía a la cola de salida.
 
-        // Escribir encabezado en el archivo de salida
-        outputFile<<"----------------------------------------"<<endl;
-        outputFile<<"ALGORITMO SHUNTING YARD"<<endl;
-        outputFile<<"SIMULACIÓN DE AUTÓMATA DE PILA"<<endl;
-        outputFile<<"----------------------------------------"<<endl<<endl;
-        outputFile<<"Expresión infija de entrada: "<<expr<<endl;
-        outputFile<<"----------------------------------------"<<endl<<endl;
+**Código:**
+```cpp
+while (!opStack.empty() && isOperator(opStack.top()) &&
+       precedence(token) <= precedence(opStack.top())) {
+    outputQueue.push(opStack.top());
+    opStack.pop();
+    currentState = "q1";
+}
+```
 
-        // Ejecutar el algoritmo y registrar pasos
-        string result = shuntingYard(expr, outputFile);
+**Condición clave:**
+```cpp
+precedence(token) <= precedence(opStack.top())
+```
+- Si **TRUE** → Desapilar (el tope tiene mayor prioridad)
+- Si **FALSE** → Apilar directamente
 
-        // Escribir resultado final
-        outputFile<<endl<<"----------------------------------------"<<endl;
-        outputFile<<"RESULTADO FINAL"<<endl;
-        outputFile<<"----------------------------------------"<<endl;
-        outputFile<<"Notación postfija: "<<result<<endl;
+**Ejemplo:**
+```
+Llega: +
+Pila: [*]
+precedence(+) = 1 ≤ precedence(*) = 2 → TRUE
+Acción: Desapilar * primero
+```
 
-        outputFile.close();
+---
 
-        cout<<"Proceso completado exitosamente."<<endl;
-        cout<<"Revise el archivo '"<<outputFileName<<"' para ver los resultados."<<endl;
+#### δ₃: Apilar Operadores
+```
+δ(q1, op, X) → (q0, opX)
+```
+**Descripción:** Después de desapilar los operadores necesarios, se apila el nuevo operador.
 
-        return 0;
-    } 
+**Código:**
+```cpp
+opStack.push(token);
+currentState = "q0";
+```
 
+---
+
+#### δ₄: Apilar Paréntesis Izquierdo
+```
+δ(q0, (, X) → (q0, (X)
+```
+**Descripción:** Los paréntesis izquierdos se apilan directamente, marcando el inicio de una sub-expresión.
+
+**Código:**
+```cpp
+if (token == '(') {
+    opStack.push('(');
+    currentState = "q0";
+}
+```
+
+---
+
+#### δ₅: Desapilar hasta encontrar '('
+```
+δ(q0, ), op) → (q0, X)   donde op ≠ (
+```
+**Descripción:** Al encontrar un paréntesis derecho, se desapilan todos los operadores hasta encontrar el '(' correspondiente.
+
+**Código:**
+```cpp
+while (!opStack.empty() && opStack.top() != '(') {
+    outputQueue.push(opStack.top());
+    opStack.pop();
+}
+```
+
+---
+
+#### δ₆: Eliminar Paréntesis Izquierdo
+```
+δ(q0, ), () → (q0, X)
+```
+**Descripción:** Una vez encontrado el '(', se elimina de la pila sin enviarlo a la cola.
+
+**Código:**
+```cpp
+if (!opStack.empty() && opStack.top() == '(') {
+    opStack.pop();  // No se envía a la cola
+}
+```
+
+---
+
+#### δ₇: Vaciar Pila Final
+```
+δ(qf, ε, op) → (qf, X)
+```
+**Descripción:** Al terminar la entrada, se desapilan todos los operadores restantes a la cola.
+
+**Código:**
+```cpp
+while (!opStack.empty()) {
+    outputQueue.push(opStack.top());
+    opStack.pop();
+}
+```
+
+---
+
+## **Instrucciones de uso**  
+
+### Requisitos Previos
+- Compilador C++ compatible con C++11 o superior (g++, clang, MinGW, Visual Studio)
+- Sistema operativo: Linux, macOS o Windows
+
+---
+
+### Compilación
+
+**Linux / macOS:**
+```bash
+g++ -o shunting_yard shunting_yard.cpp -std=c++11
+```
+
+**Windows (MinGW):**
+```cmd
+g++ -o shunting_yard.exe shunting_yard.cpp -std=c++11
+```
+
+**Windows (Visual Studio):**
+```cmd
+cl shunting_yard.cpp /EHsc
+```
+
+## **Resultados de prueba**  
+
+### Caso Básico
+
+**Entrada:** `2+3*4`
+
+**Salida Postfija:** `2 3 4 * +`
+
+**Transiciones del Autómata:**
+```
+PASO    CONFIG. INICIAL          TRANSICIÓN APLICADA           CONFIG. FINAL            PILA
+=================================================================================================
+0       (q0, 2+3*4, Z0)          Inicial                                                Z0
+1       (q0, 2+3*4, Z0)          δ(q0, 2, Z0) → (q1, Z0)       (q1, +3*4, Z0)           Z0
+2       (q1, +3*4, Z0)           δ(q1, +, Z0) → (q0, +Z0)      (q0, 3*4, +)             [ + ]
+3       (q0, 3*4, +)             δ(q0, 3, +) → (q1, +)         (q1, *4, +)              [ + ]
+4       (q1, *4, +)              δ(q1, *, +) → (q0, *+)        (q0, 4, *)               [ +, * ]
+5       (q0, 4, *)               δ(q0, 4, *) → (q1, *)         (q1, ε, *)               [ +, * ]
+6       (qf, ε, *)               δ(qf, ε, *) → (qf, +)         (qf, ε, +)               [ + ]
+7       (qf, ε, +)               δ(qf, ε, +) → (qf, Z0)        (qf, ε, Z0)              Z0
+
+Cola de salida: [ 2, 3, 4, *, + ]
+```
+
+### Caso con Paréntesis
+
+**Entrada:** `(2+3)*4`
+
+**Salida Postfija:** `2 3 + 4 *`
+
+**Transiciones del Autómata:**
+```
+PASO    CONFIG. INICIAL          TRANSICIÓN APLICADA           CONFIG. FINAL            PILA
+=================================================================================================
+0       (q0, (2+3)*4, Z0)        Inicial                                                Z0
+1       (q0, (2+3)*4, Z0)        δ(q0, (, Z0) → (q0, (Z0)      (q0, 2+3)*4, ()          [ ( ]
+2       (q0, 2+3)*4, ()          δ(q0, 2, () → (q1, ()         (q1, +3)*4, ()           [ ( ]
+3       (q1, +3)*4, ()           δ(q1, +, () → (q0, +()        (q0, 3)*4, +)            [ (, + ]
+4       (q0, 3)*4, +)            δ(q0, 3, +) → (q1, +)         (q1, )*4, +)             [ (, + ]
+5       (q1, )*4, +)             δ(q1, ε, +) → (q1, ()         (q1, )*4, ()             [ ( ]
+6       (q1, )*4, ()             δ(q1, ), () → (q0, Z0)        (q0, *4, Z0)             Z0
+7       (q0, *4, Z0)             δ(q0, *, Z0) → (q0, *Z0)      (q0, 4, *)               [ * ]
+8       (q0, 4, *)               δ(q0, 4, *) → (q1, *)         (q1, ε, *)               [ * ]
+9       (qf, ε, *)               δ(qf, ε, *) → (qf, Z0)        (qf, ε, Z0)              Z0
+
+Cola de salida: [ 2, 3, +, 4, * ]
+```
+### Caso Rechazado
+
+**Entrada:** `(2+3*4`
+
+**Transiciones del Autómata:**
+```
+PASO    CONFIG. INICIAL          TRANSICIÓN APLICADA           CONFIG. FINAL            PILA
+=================================================================================================
+0       (q0, (2+3*4, Z0)         Inicial                                                Z0
+1       (q0, (2+3*4, Z0)         δ(q0, (, Z0) → (q0, (Z0)      (q0, 2+3*4, ()           [ ( ]
+2       (q0, 2+3*4, ()           δ(q0, 2, () → (q1, ()         (q1, +3*4, ()            [ ( ]
+3       (q1, +3*4, ()            δ(q1, +, () → (q0, +()        (q0, 3*4, +)             [ (, + ]
+4       (q0, 3*4, +)             δ(q0, 3, +) → (q1, +)         (q1, *4, +)              [ (, + ]
+5       (q1, *4, +)              δ(q1, *, +) → (q0, *+)        (q0, 4, *)               [ (, +, * ]
+6       (q0, 4, *)               δ(q0, 4, *) → (q1, *)         (q1, ε, *)               [ (, +, * ]
+7       (qf, ε, *)               δ(qf, ε, *) → (qf, +)         (qf, ε, +)               [ (, + ]
+8       (qf, ε, +)               δ(qf, ε, +) → (qf, ()         (qf, ε, ()               [ ( ]
+
+ERROR: Pila final contiene '(' → Paréntesis desbalanceados 
+```
+
+**Resultado:**  **Expresión rechazada - Paréntesis sin cerrar**
