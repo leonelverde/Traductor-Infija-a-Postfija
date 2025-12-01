@@ -266,7 +266,7 @@ string shuntingYard(const string &expr, ofstream &outFile) {  // Recibe como par
             // Desapilar operadores de mayor o igual precedencia
             while (!opStack.empty() && (opStack.top() == '+' || opStack.top() == '-' || opStack.top() == '*' || opStack.top() == '/') &&
                    ((token == '+' || token == '-') && (opStack.top() == '+' || opStack.top() == '-')) ||
-                   ((token == '' || token == '/') && (opStack.top() == '' || opStack.top() == '/'))) {
+                   ((token == '*' || token == '/') && (opStack.top() == '*' || opStack.top() == '/'))) {
 
                 string topOp(1, opStack.top());
                 configInicial = "(" + currentState + ", " + remainingInput + ", " + topOp + ")";
