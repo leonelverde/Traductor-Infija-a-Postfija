@@ -94,7 +94,7 @@ El programa debe mostrarle un mensaje de error al usuario: ¡ERROR! No se encont
 ---
 ## **Entrada/Salida en el programa**
 
-  El presente programa recibe como entrada(input) dos archivos de texto, el primero tendrá como contenido la notación infija que quiere convertir, cabe recalcar que el programa ignora los espacios, por lo tanto acepta tanto `4 + 3 * ( 5 + 7 )` como `4+3*(5+7)`; el segundo archivo de entrada será el archivo de salida en el cuál se mostrará tanto el resultado como el procedimiento de la conversión. Puede usar el mismo archivo para la entrada y salida, pero tiene que saber que si hace esto, el archivo de salida se sobreescribirá
+El presente programa recibe como entrada(input) dos archivos de texto,puede ingresar solo el nombre de los archivos si es que están en el mismo directorio que el ejecutable, o pueden ingresar la ruta absoluta de los archivos (recomendado); el primero tendrá como contenido la notación infija que quiere convertir, cabe recalcar que el programa ignora los espacios, por lo tanto acepta tanto `4 + 3 * ( 5 + 7 )` como `4+3*(5+7)`; el segundo archivo de entrada será el archivo de salida en el cuál se mostrará tanto el resultado como el procedimiento de la conversión. Puede usar el mismo archivo para la entrada y salida, pero tiene que saber que si hace esto, el archivo de salida se sobreescribirá.
 
      int main(){
         setlocale(LC_ALL, "");
