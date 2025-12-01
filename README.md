@@ -388,7 +388,11 @@ ERROR: Pila final contiene '(' → Paréntesis desbalanceados
 **Resultado:**  **Expresión rechazada - Paréntesis sin cerrar**  
 
 ---
-# **Simulación en JFLAP**
+# **Simulación en JFLAP**  
+
+(https://raw.githubusercontent.com/leonelverde/Traductor-Infija-a-Postfija/refs/heads/main/JFLAP_infija_to_posfija.png)  
+
+...
 # **Conclusiones**  
 
 
