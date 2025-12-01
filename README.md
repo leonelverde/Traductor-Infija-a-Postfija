@@ -7,9 +7,9 @@
 - Zapata LLaxa, Jorge Andrés
 
 ---
-## **Introducción**
+# **Introducción**
 
-### **Descripción del proyecto**
+## **Descripción del proyecto**
 El proyecto que realizaremos en C++ se encargará de convertir las expresiones infijas (Notación natural, la que usamos comúnmente) a postfijas (Notación donde los operadores van después de los operandos) 
 
 Para esto usaremos el método “Shunting-Yard” creado por el científico en computación Edsger Dijkstra. Su nombre significa “Estación de clasificación” esto es así por su forma en la que hace que los operadores y paréntesis 
@@ -18,7 +18,7 @@ se muevan de manera que respeten la precedencia correcta.
 Para resumir, lo que buscaremos es que el programa analice la expresión en notación infija que el usuario le dé paso por paso cumpliendo la prioridad de los operadores y el uso de paréntesis pasando de infijas a postfijas.
 
 ---
-### **Necesidad de la traducción**
+## **Necesidad de la traducción**
 
 La principal razón por qué se necesita la traducción del algoritmo Shunting-Yard es porque las computadoras no son capaces de interpretar por sí mismas las expresiones que utilizamos generalmente los humanos. Nosotros escribimos en notación infija. 
 
@@ -27,7 +27,7 @@ Por ejemplo:	3 + 4 * (2 - 1)
 La notación infija requiere de reglas de precedencia como que la multiplicación se hace antes que la suma o que los paréntesis alteran el orden, llegando a ser ambiguas para las computadoras debido a que estas reglas no vienen “incluidas” en la expresión matemática, por lo tanto la computadora tendría que interpretarlas cada vez. Además que las traducciones directas desde infijo a código ejecutable son difíciles de realizar por los lenguajes de programación lo que llega a ser ineficiente y vulnerable a errores.
 
 ---
-### **El rol del algoritmo Shunting-Yard como un Autómata de Pila**
+## **El rol del algoritmo Shunting-Yard como un Autómata de Pila**
 
 El funcionamiento del algoritmo Shunting-Yard se relaciona adecuadamente con las características de un autómata de pila debido a las siguientes causas:
 
@@ -44,9 +44,9 @@ El funcionamiento del algoritmo Shunting-Yard se relaciona adecuadamente con las
   Puede generar cadenas (autómata de pila con salida) como un AP.
 
 ---
-## **Diseño del AP (Shunting-Yard)**
+# **Diseño del AP (Shunting-Yard)**
 
-### **Estructuras**
+## **Estructuras**
 
 * **Pila de operadores (Stack)**  
 
@@ -102,7 +102,7 @@ outputQueue.pop();  // Elimina el primer elemento
 ```cpp
 if (outputQueue.empty()) { /* Cola vacía */ }
 ```
-### **Tabla de precedencia**  
+## **Tabla de precedencia**  
 
 *Jerarquía de operadores:* Esto sería una pequeña tabla para indicar que * y / tienen más prioridad que + y -.
   | Operadores | Prioridad |
@@ -125,9 +125,9 @@ int precedence(char op) {
 }
 ```  
 
-### **Funciones de transición**  
+## **Funciones de transición**  
 
-### 1. Definición Formal del Autómata
+## 1. Definición Formal del Autómata
 
 **M = (Q, Σ, Γ, δ, q0, Z0, F)**
 
@@ -141,7 +141,7 @@ int precedence(char op) {
 
 ---
 
-### 2. Estados del Autómata
+## 2. Estados del Autómata
 
 | Estado | Descripción |
 |--------|-------------|
@@ -151,7 +151,7 @@ int precedence(char op) {
 
 ---
 
-### 3. Tabla Resumen de Transiciones
+## 3. Tabla Resumen de Transiciones
 
 | Función | Estado Actual | Entrada | Tope Pila | Acción | Nuevo Estado | Nueva Pila |
 |---------|---------------|---------|-----------|--------|--------------|------------|
@@ -164,9 +164,9 @@ int precedence(char op) {
 | δ₇ | qf | ε | op | Desapilar a cola | qf | X |
 
 ---
-### 4. Descripción Detallada de Transiciones
+## 4. Descripción Detallada de Transiciones
 
-#### δ₁: Procesamiento de Operandos
+### δ₁: Procesamiento de Operandos
 ```
 δ(q0, número, X) → (q1, X)
 ```
@@ -182,7 +182,7 @@ if (isdigit(token)) {
 
 ---
 
-#### δ₂: Desapilar Operadores (POP Condicional)
+### δ₂: Desapilar Operadores (POP Condicional)
 ```
 δ(q1, ε, op) → (q1, X)
 ```
@@ -215,7 +215,7 @@ Acción: Desapilar * primero
 
 ---
 
-#### δ₃: Apilar Operadores
+### δ₃: Apilar Operadores
 ```
 δ(q1, op, X) → (q0, opX)
 ```
@@ -229,7 +229,7 @@ currentState = "q0";
 
 ---
 
-#### δ₄: Apilar Paréntesis Izquierdo
+### δ₄: Apilar Paréntesis Izquierdo
 ```
 δ(q0, (, X) → (q0, (X)
 ```
@@ -245,7 +245,7 @@ if (token == '(') {
 
 ---
 
-#### δ₅: Desapilar hasta encontrar '('
+### δ₅: Desapilar hasta encontrar '('
 ```
 δ(q0, ), op) → (q0, X)   donde op ≠ (
 ```
@@ -261,7 +261,7 @@ while (!opStack.empty() && opStack.top() != '(') {
 
 ---
 
-#### δ₆: Eliminar Paréntesis Izquierdo
+### δ₆: Eliminar Paréntesis Izquierdo
 ```
 δ(q0, ), () → (q0, X)
 ```
@@ -276,7 +276,7 @@ if (!opStack.empty() && opStack.top() == '(') {
 
 ---
 
-#### δ₇: Vaciar Pila Final
+### δ₇: Vaciar Pila Final
 ```
 δ(qf, ε, op) → (qf, X)
 ```
@@ -292,15 +292,15 @@ while (!opStack.empty()) {
 
 ---
 
-## **Instrucciones de uso**  
+# **Instrucciones de uso**  
 
-### Requisitos Previos
+## Requisitos Previos
 - Compilador C++ compatible con C++11 o superior (g++, clang, MinGW, Visual Studio)
 - Sistema operativo: Linux, macOS o Windows
 
 ---
 
-### Compilación
+## Compilación
 
 **Linux / macOS:**
 ```bash
@@ -317,9 +317,9 @@ g++ -o shunting_yard.exe shunting_yard.cpp -std=c++11
 cl shunting_yard.cpp /EHsc
 ```
 
-## **Resultados de prueba**  
+# **Resultados de prueba**  
 
-### Caso Básico
+## Caso Básico
 
 **Entrada:** `2+3*4`
 
@@ -341,7 +341,7 @@ PASO    CONFIG. INICIAL          TRANSICIÓN APLICADA           CONFIG. FINAL   
 Cola de salida: [ 2, 3, 4, *, + ]
 ```
 
-### Caso con Paréntesis
+## Caso con Paréntesis
 
 **Entrada:** `(2+3)*4`
 
@@ -364,7 +364,7 @@ PASO    CONFIG. INICIAL          TRANSICIÓN APLICADA           CONFIG. FINAL   
 
 Cola de salida: [ 2, 3, +, 4, * ]
 ```
-### Caso Rechazado
+## Caso Rechazado
 
 **Entrada:** `(2+3*4`
 
