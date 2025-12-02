@@ -555,16 +555,6 @@ Código XML compatible con JFLAP que muestra el autómata de pila:
 
 ## Explicación de la simulación en JFLAP
 
-**Definimos el autómata de pila**
-
-* **Q (Conjunto de Estados):** {q0, q1, q_fin}
-* **∑ (Alfabeto de Entrada):** {x, +, *, (, )}
-* **Γ (Alfabeto de la Pila):** {Z, (, +, *}
-* **q0 (Estado Inicial):** q0
-* **Z0 (Símbolo Inicial de Pila):** Z
-* **F (Conjunto de Estados Finales):** {q_fin}
-* **δ (Función de Transición):** Es el conjunto de flechas que se ven en la imagen.
-  
 **Explicación de transiciones**
 
 **A. ¿Qué significa x, λ ; λ? (La transición de q0 a q1)**
