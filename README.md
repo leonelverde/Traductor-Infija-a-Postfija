@@ -398,12 +398,12 @@ ERROR: Pila final contiene '(' → Paréntesis desbalanceados
 
 **Definimos el autómata de pila**
 
-* **Q (Conjunto de Estados):** {q0, q1, qfin}
+* **Q (Conjunto de Estados):** {q0, q1, q_fin}
 * **∑ (Alfabeto de Entrada):** {x, +, *, (, )}
 * **Γ (Alfabeto de la Pila):** {Z, (, +, *}
 * **q0 (Estado Inicial):** q0
 * **Z0 (Símbolo Inicial de Pila):** Z
-* **F (Conjunto de Estados Finales):** {qfin}
+* **F (Conjunto de Estados Finales):** {q_fin}
 * **δ (Función de Transición):** Es el conjunto de flechas que se ven en la imagen.
   
 **Explicación de transiciones**
@@ -423,7 +423,7 @@ ERROR: Pila final contiene '(' → Paréntesis desbalanceados
 * Apertura “(“: En q0, si viene (, se apila y nos quedamos en q0.
 * Cierre “)”: En q1, si viene ), empezamos a desapilar (sacar cosas de la pila) hasta encontrar el paréntesis de apertura.
   
-**E. El Estado Final (qfin)**
+**E. El Estado Final (q_fin)**
 * Cuando se acaba la entrada y llegamos al fondo de la pila (Z), el autómata acepta la cadena, saca el fondo de pila y termina el proceso con éxito".
 * También si quedó algún símbolo en la pila desapilamos todo antes de sacar el Z del fondo de la pila.
   
