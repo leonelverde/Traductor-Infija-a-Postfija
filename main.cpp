@@ -23,58 +23,73 @@ int main() {
     setlocale(LC_ALL, "");
 
     string inputFileName, outputFileName;
+    string expr;
 
-    cout<<"Ingrese el nombre del archivo de entrada: ";
+    // Pedir nombres de archivos
+    cout << "Ingrese el nombre del archivo de entrada (se creara si no existe): ";
     getline(cin, inputFileName);
 
-    cout<<"Ingrese el nombre del archivo de salida: ";
+    cout << "Ingrese el nombre del archivo de salida: ";
     getline(cin, outputFileName);
 
-    // Abrir archivo de entrada
-    ifstream inputFile(inputFileName);
-    if (!inputFile.is_open()) {
-        cerr<<"Error: No se pudo abrir el archivo de entrada '"<<inputFileName<<"'"<<endl;
+    // ==== CREAR AUTOMÁTICAMENTE EL ARCHIVO DE ENTRADA ====
+    ofstream createInput(inputFileName);  // Crea el archivo (o lo reemplaza)
+    if (!createInput.is_open()) {
+        cerr << "Error: No se pudo crear el archivo de entrada '" << inputFileName << "'" << endl;
         return 1;
     }
 
-    // Leer la expresión infija
-    string expr;
+    // Pedir la expresión infija por consola
+    cout << "Ingrese la expresion infija: ";
+    getline(cin, expr);
+
+    if (expr.empty()) {
+        cerr << "Error: La expresion ingresada está vacía." << endl;
+        return 1;
+    }
+
+    // Guardar la expresión infija dentro del archivo de entrada
+    createInput << expr << endl;
+    createInput.close();
+
+    // ======= LEER EL ARCHIVO DE ENTRADA YA CREADO =======
+    ifstream inputFile(inputFileName);
+    if (!inputFile.is_open()) {
+        cerr << "Error: No se pudo abrir el archivo de entrada." << endl;
+        return 1;
+    }
+
     getline(inputFile, expr);
     inputFile.close();
 
-    if (expr.empty()) {
-        cerr<<"Error: El archivo de entrada está vacío"<<endl;
-        return 1;
-    }
-
-    // Abrir archivo de salida
+    // Abrir archivo de salida (se crea si no existe)
     ofstream outputFile(outputFileName);
     if (!outputFile.is_open()) {
-        cerr<<"Error: No se pudo crear el archivo de salida '"<<outputFileName<<"'"<<endl;
+        cerr << "Error: No se pudo crear el archivo de salida '" << outputFileName << "'" << endl;
         return 1;
     }
 
-    // Escribir encabezado en el archivo de salida
+    // Escribir encabezado
     outputFile<<"----------------------------------------"<<endl;
     outputFile<<"ALGORITMO SHUNTING YARD"<<endl;
-    outputFile<<"SIMULACIÓN DE AUTÓMATA DE PILA"<<endl;
+    outputFile<<"SIMULACION DE AUTOMATA DE PILA"<<endl;
     outputFile<<"----------------------------------------"<<endl<<endl;
-    outputFile<<"Expresión infija de entrada: "<<expr<<endl;
+    outputFile<<"Expresion infija de entrada: "<<expr<<endl;
     outputFile<<"----------------------------------------"<<endl<<endl;
 
-    // Ejecutar el algoritmo y registrar pasos
+    // Ejecutar algoritmo
     string result = shuntingYard(expr, outputFile);
 
-    // Escribir resultado final
+    // Resultado final
     outputFile<<endl<<"----------------------------------------"<<endl;
     outputFile<<"RESULTADO FINAL"<<endl;
     outputFile<<"----------------------------------------"<<endl;
-    outputFile<<"Notación postfija: "<<result<<endl;
+    outputFile<<"Notacion postfija: "<<result<<endl;
 
     outputFile.close();
 
-    cout<<"Proceso completado exitosamente."<<endl;
-    cout<<"Revise el archivo '"<<outputFileName<<"' para ver los resultados."<<endl;
+    cout << "\nProceso completado exitosamente." << endl;
+    cout << "Revise el archivo '" << outputFileName << "' para ver los resultados." << endl;
 
     return 0;
 }
