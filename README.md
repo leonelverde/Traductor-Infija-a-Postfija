@@ -563,11 +563,11 @@ Código XML compatible con JFLAP que muestra el autómata de pila:
 **2. Estado q1**
 
 * **Manejo de Jerarquías:** Antes de leer el siguiente signo, el autómata revisa la pila. Si el operador que está en la cima de la pila tiene mayor o igual prioridad que el que viene, lo desapilamos sin leer un símbolo de la cadena. Son las transiciones: λ, * ; λ y λ, + ; λ
-* **Apilar y Regresar (+, *):*** Leemos el operador de entrada, lo apilamos y nos regresamos a q0. Esto es así porque después de un operador, sí o sí necesitamos otro número.
+* **Apilar y Regresar (+,*):** Leemos el operador de entrada, lo apilamos y nos regresamos a q0. Esto es así porque después de un operador, sí o sí necesitamos otro número.
 * **Cierre de paréntesis:** Si llega un paréntesis de cierre, nos quedamos en el mismo estado q1, sacando todo lo que haya en la pila hasta que aparezca el paréntesis de apertura que guardamos antes en q0 y ahi lo desapilamos.
-* **Transición final:** La flecha λ, λ ; λ nos dice que  la cadena de entrada se leyó completa, por eso pasamos a qfin.
+* **Transición final:** La flecha λ, λ ; λ nos dice que  la cadena de entrada se leyó completa, por eso pasamos a q_fin.
 
-**3. Estado qfin**
+**3. Estado q_fin**
 
 * **Limpieza:** Aquí pueden quedar operadores aún en la pila así que desapilamos los que queden para que al final solo quede Z al fondo, lo sacamos también y termina el proceso confirmando que la expresión es correcta. Como decimos si hubiera quedado algo en la pila, aquí es donde terminaríamos de vaciarlo antes de aceptar.
 
