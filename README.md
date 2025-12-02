@@ -311,14 +311,69 @@ g++ -o shunting_yard shunting_yard.cpp -std=c++11
 ```cmd
 g++ -o shunting_yard.exe shunting_yard.cpp -std=c++11
 ```
+# **Instrucciones de uso**  
 
-**Windows (Visual Studio):**
-```cmd
-cl shunting_yard.cpp /EHsc
+## Requisitos Previos
+- Compilador C++ compatible con C++11 o superior (g++, clang, MinGW, Visual Studio)
+- Sistema operativo: Linux, macOS o Windows
+
+---
+
+## Compilación
+
+**Linux / macOS:**
+```bash
+g++ -o main main.cpp 
 ```
-# **Guia de ejecución**
 
+**Windows (MinGW):**
+```cmd
+g++ -o main.exe main.cpp 
+```
 
+## Ejecución  
+
+Linux/macOS  
+```bash
+./main
+```
+
+Windows
+```cmd
+main.exe
+```
+## Flujo de ejecución paso a paso  
+
+Cuando ejecutas el programa, sigue los pasos:  
+
+1. Ingresar el nombre del archivo de entrada  
+
+```cpp
+Ingrese el nombre del archivo de entrada (se creará si no existe):
+```
+
+**El archivo se creará automáticamente si no existe. Aquí se guardará la expresión infija.**  
+
+2. Ingresar el nombre del archivo de salida
+```cpp
+Ingrese el nombre del archivo de salida:
+```
+
+**El archivo se crea automáticamente si no existe. Aquí se almacenará el procedimiento completo y el resultado final en notación postfija.**  
+
+3. Ingresar la exprexión infija  
+
+```cpp
+Ingrese la expresión infija:
+```
+
+*Ejemplos:*  
+(3+4)*5  
+(5+7)/(6-2)  
+
+**La expresión se guarda automáticamente dentro del archivo de entrada. Luego, el programa llama a la función `shuntingYard` para convertir la expresión a notación postfija.**
+
+---
 # **Resultados de prueba**  
 
 ## Caso Básico
@@ -392,6 +447,129 @@ ERROR: Pila final contiene '(' → Paréntesis desbalanceados
 ---
 # **Simulación en JFLAP**  
 
+## Traductor_infija_to_postfija.jff  
+
+Código XML compatible con JFLAP que muestra el autómata de pila:  
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>&#13;
+	<type>pda</type>&#13;
+	<automaton>&#13;
+		<!--The list of states.-->&#13;
+		<state id="0" name="q0">&#13;
+			<x>76.0</x>&#13;
+			<y>132.0</y>&#13;
+			<initial/>&#13;
+		</state>&#13;
+		<state id="1" name="q1">&#13;
+			<x>200.0</x>&#13;
+			<y>126.0</y>&#13;
+		</state>&#13;
+		<state id="2" name="q_fin">&#13;
+			<x>320.0</x>&#13;
+			<y>138.0</y>&#13;
+		</state>&#13;
+		<!--The list of transitions.-->&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>0</to>&#13;
+			<read>(</read>&#13;
+			<pop/>&#13;
+			<push>(</push>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>1</to>&#13;
+			<read>)</read>&#13;
+			<pop>(</pop>&#13;
+			<push/>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>1</to>&#13;
+			<read/>&#13;
+			<pop>*</pop>&#13;
+			<push/>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>2</from>&#13;
+			<to>2</to>&#13;
+			<read/>&#13;
+			<pop>*</pop>&#13;
+			<push/>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>1</to>&#13;
+			<read/>&#13;
+			<pop>+</pop>&#13;
+			<push/>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>2</from>&#13;
+			<to>2</to>&#13;
+			<read/>&#13;
+			<pop>+</pop>&#13;
+			<push/>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>0</to>&#13;
+			<read>*</read>&#13;
+			<pop>Z</pop>&#13;
+			<push>*Z</push>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>0</to>&#13;
+			<read>*</read>&#13;
+			<pop>+</pop>&#13;
+			<push>*+</push>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>0</to>&#13;
+			<read>+</read>&#13;
+			<pop>Z</pop>&#13;
+			<push>+Z</push>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>0</to>&#13;
+			<read>+</read>&#13;
+			<pop>(</pop>&#13;
+			<push>+(</push>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>0</to>&#13;
+			<read>*</read>&#13;
+			<pop>(</pop>&#13;
+			<push>*(</push>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>1</to>&#13;
+			<read>x</read>&#13;
+			<pop/>&#13;
+			<push/>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>2</to>&#13;
+			<read/>&#13;
+			<pop/>&#13;
+			<push/>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>2</from>&#13;
+			<to>2</to>&#13;
+			<read/>&#13;
+			<pop>Z</pop>&#13;
+			<push/>&#13;
+		</transition>&#13;
+	</automaton>&#13;
+</structure>
+```
 ![](https://raw.githubusercontent.com/leonelverde/Traductor-Infija-a-Postfija/refs/heads/main/JFLAP_infija_to_posfija.png)  
 
 ## Explicación de la simulación en JFLAP
