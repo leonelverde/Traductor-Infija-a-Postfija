@@ -396,14 +396,15 @@ ERROR: Pila final contiene '(' → Paréntesis desbalanceados
 
 ## Explicacion del grafo en JFLAP
 
-Definimos al autómata
-* Q (Conjunto de Estados): {q0, q1, qfin}
-* ∑ (Alfabeto de Entrada): {x, +, *, (, )}
-* Γ(Alfabeto de la Pila): {Z, (, +, *}
-* q0 (Estado Inicial): q0
-* Z0 (Símbolo Inicial de Pila): Z
-* F (Conjunto de Estados Finales): {qfin}
-* δ (Función de Transición): Es el conjunto de flechas que se ven en la imagen.
+**Definimos el autómata de pila**
+
+* **Q (Conjunto de Estados):** {q0, q1, qfin}
+* **∑ (Alfabeto de Entrada):** {x, +, *, (, )}
+* **Γ(Alfabeto de la Pila):** {Z, (, +, *}
+* **q0 (Estado Inicial):** q0
+* **Z0 (Símbolo Inicial de Pila):** Z
+* **F (Conjunto de Estados Finales):** {qfin}
+* **δ (Función de Transición):** Es el conjunto de flechas que se ven en la imagen.
   
 Explicación de transiciones
 A. ¿Qué significa x, λ ; λ? (La transición de q0 a q1)
