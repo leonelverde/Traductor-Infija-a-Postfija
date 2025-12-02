@@ -407,6 +407,7 @@ ERROR: Pila final contiene '(' → Paréntesis desbalanceados
 * **δ (Función de Transición):** Es el conjunto de flechas que se ven en la imagen.
   
 **Explicación de transiciones**
+
 **A. ¿Qué significa x, λ ; λ? (La transición de q0 a q1)**
 * Representa cuando leemos un número (x). En el algoritmo Shunting Yard, los números pasan directamente a la salida. Por eso leemos 'x', no sacamos nada de la pila  y no metemos nada a la pila. Simplemente cambiamos de estado para indicar que ya leímos un operando.
   
