@@ -333,14 +333,14 @@ Cuando ejecutas el programa, sigue los pasos:
 Ingrese el nombre del archivo de entrada (se creará si no existe):
 ```
 
-**El archivo se creará automáticamente si no existe. Aquí se guardará la expresión infija.**  
+**El archivo de entrada se creará automáticamente si no existe. Aquí se guardará la expresión infija.**  
 
 2. Ingresar el nombre del archivo de salida
 ```cpp
 Ingrese el nombre del archivo de salida:
 ```
 
-**El archivo se crea automáticamente si no existe. Aquí se almacenará el procedimiento completo y el resultado final en notación postfija.**  
+**El archivo de salida se crea automáticamente si no existe. Aquí se almacenará el procedimiento completo y el resultado final en notación postfija.**  
 
 3. Ingresar la exprexión infija  
 
@@ -352,7 +352,7 @@ Ingrese la expresión infija:
 (3+4)*5  
 (5+7)/(6-2)  
 
-**La expresión se guarda automáticamente dentro del archivo de entrada. Luego, el programa llama a la función `shuntingYard` para convertir la expresión a notación postfija.**
+**La expresión en notación infija se guarda automáticamente dentro del archivo de entrada. Luego, el programa llama a la función `shuntingYard` para convertir la expresión a notación postfija.**
 
 ---
 # **Resultados de prueba**  
