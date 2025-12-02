@@ -304,25 +304,6 @@ while (!opStack.empty()) {
 
 **Linux / macOS:**
 ```bash
-g++ -o shunting_yard shunting_yard.cpp -std=c++11
-```
-
-**Windows (MinGW):**
-```cmd
-g++ -o shunting_yard.exe shunting_yard.cpp -std=c++11
-```
-# **Instrucciones de uso**  
-
-## Requisitos Previos
-- Compilador C++ compatible con C++11 o superior (g++, clang, MinGW, Visual Studio)
-- Sistema operativo: Linux, macOS o Windows
-
----
-
-## Compilación
-
-**Linux / macOS:**
-```bash
 g++ -o main main.cpp 
 ```
 
