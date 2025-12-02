@@ -394,6 +394,30 @@ ERROR: Pila final contiene '(' → Paréntesis desbalanceados
 
 ![](https://raw.githubusercontent.com/leonelverde/Traductor-Infija-a-Postfija/refs/heads/main/JFLAP_infija_to_posfija.png)  
 
+**Explicacion del grafo en JFLAP**
+Definimos al autómata
+* Q (Conjunto de Estados): {q0, q1, qfin}
+* ∑ (Alfabeto de Entrada): {x, +, *, (, )}
+* Γ(Alfabeto de la Pila): {Z, (, +, *}
+* q0 (Estado Inicial): q0
+* Z0 (Símbolo Inicial de Pila): Z
+* F (Conjunto de Estados Finales): {qfin}
+* δ (Función de Transición): Es el conjunto de flechas que se ven en la imagen.
+Explicación de transiciones
+A. ¿Qué significa x, λ ; λ? (La transición de q0 a q1)
+* Representa cuando leemos un número (x). En el algoritmo Shunting Yard, los números pasan directamente a la salida. Por eso leemos 'x', no sacamos nada de la pila  y no metemos nada a la pila. Simplemente cambiamos de estado para indicar que ya leímos un operando".
+B. El "Bucle" en q1 (Manejo de Precedencia)
+* Hay transiciones  λ, * ; λ o λ, + ; λ que se quedan en q1.
+* Estas son transiciones (epsilon). Significan que sin leer nada de la entrada, el autómata decide sacar operadores de la pila para enviarlos a la salida. Esto ocurre cuando el operador que queremos insertar tiene menor jerarquía que el que está en la pila.
+C. El viaje de q1 de regreso a q0
+* Flechas con + , Z ; +Z o * , + ; *+.
+* Cuando encontramos un operador (como + o *), volvemos al estado inicial q0 para esperar el siguiente número. En ese viaje, apilamos al operador sobre lo que ya había en la pila (por ejemplo, ponemos + sobre Z)."
+D. Los Paréntesis
+* Apertura “(“: En q0, si viene (, se apila y nos quedamos en q0.
+* Cierre “)”: En q1, si viene ), empezamos a desapilar (sacar cosas de la pila) hasta encontrar el paréntesis de apertura.
+E. El Estado Final (qfin)
+* Cuando se acaba la entrada  y llegamos al fondo de la pila (Z), el autómata acepta la cadena, saca el fondo de pila y termina el proceso con éxito".
+* También si quedó algún símbolo en la pila desapilamos todo antes de sacar el Z del fondo de la pila
 ---
 # **Conclusiones**  
 
