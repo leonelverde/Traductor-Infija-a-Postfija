@@ -352,7 +352,7 @@ Ingrese la expresión infija:
 (3+4)*5  
 (5+7)/(6-2)  
 
-**La expresión en notación infija se guarda automáticamente dentro del archivo de entrada. Luego, el programa llama a la función `shuntingYard` para convertir la expresión a notación postfija.**
+**La expresión en notación infija se guarda automáticamente dentro del archivo de entrada. Luego, el programa llama a la función `shuntingYard` para convertir la expresión a notación postfija guardando automaticamente el procedimiento y resultado dentro del archivo de salida.**
 
 ---
 # **Resultados de prueba**  
