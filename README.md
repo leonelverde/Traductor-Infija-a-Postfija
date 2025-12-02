@@ -424,7 +424,7 @@ ERROR: Pila final contiene '(' → Paréntesis desbalanceados
 * **Cierre “)”:** En q1, si viene ), empezamos a desapilar (sacar cosas de la pila) hasta encontrar el paréntesis de apertura.
   
 **E. El Estado Final (q_fin)**
-* Cuando se acaba la entrada y llegamos al fondo de la pila (Z), el autómata acepta la cadena, saca el fondo de pila y termina el proceso con éxito".
+* Cuando se acaba la entrada y llegamos al fondo de la pila (Z), el autómata acepta la cadena, saca el fondo de pila y termina el proceso con éxito.
 * También si quedó algún símbolo en la pila desapilamos todo antes de sacar el Z del fondo de la pila.
   
 ---
