@@ -420,8 +420,8 @@ ERROR: Pila final contiene '(' → Paréntesis desbalanceados
 * Cuando encontramos un operador (como + o *), volvemos al estado inicial q0 para esperar el siguiente número. En ese viaje, apilamos al operador sobre lo que ya había en la pila (por ejemplo, ponemos + sobre Z).
   
 **D. Los Paréntesis**
-* Apertura “(“: En q0, si viene (, se apila y nos quedamos en q0.
-* Cierre “)”: En q1, si viene ), empezamos a desapilar (sacar cosas de la pila) hasta encontrar el paréntesis de apertura.
+* **Apertura “(“:** En q0, si viene (, se apila y nos quedamos en q0.
+* **Cierre “)”:** En q1, si viene ), empezamos a desapilar (sacar cosas de la pila) hasta encontrar el paréntesis de apertura.
   
 **E. El Estado Final (q_fin)**
 * Cuando se acaba la entrada y llegamos al fondo de la pila (Z), el autómata acepta la cadena, saca el fondo de pila y termina el proceso con éxito".
