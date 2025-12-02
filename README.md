@@ -555,27 +555,22 @@ Código XML compatible con JFLAP que muestra el autómata de pila:
 
 ## Explicación de la simulación en JFLAP
 
-**Explicación de transiciones**
+**1. Estado q0**
 
-**A. ¿Qué significa x, λ ; λ? (La transición de q0 a q1)**
-* Representa cuando leemos un número (x). En el algoritmo Shunting Yard, los números pasan directamente a la salida. Por eso leemos 'x', no sacamos nada de la pila  y no metemos nada a la pila. Simplemente cambiamos de estado para indicar que ya leímos un operando.
+* **Lectura de datos:** Al leer un número, el autómata simplemente avanza hacia q1. Podemos ver que la transición es  x, λ ; λ; esto es importante porque significa que el número pasa directo a la cola, sin afectar a la pila.
+* **Paréntesis de apertura :** Si nos encontramos con un (, nos quedamos en este mismo estado q0 pero lo apilamos.
   
-**B. El "Bucle" en q1 (Manejo de Precedencia)**
-* Hay transiciones  λ, * ; λ o λ, + ; λ que se quedan en q1.
-* Estas son transiciones (epsilon). Significan que sin leer nada de la entrada, el autómata decide sacar operadores de la pila para enviarlos a la salida. Esto ocurre cuando el operador que queremos insertar tiene menor jerarquía que el que está en la pila.
-  
-**C. El viaje de q1 de regreso a q0**
-* Flechas con + , Z ; +Z o * , + ; *+.
-* Cuando encontramos un operador (como + o *), volvemos al estado inicial q0 para esperar el siguiente número. En ese viaje, apilamos al operador sobre lo que ya había en la pila (por ejemplo, ponemos + sobre Z).
-  
-**D. Los Paréntesis**
-* **Apertura “(“:** En q0, si viene (, se apila y nos quedamos en q0.
-* **Cierre “)”:** En q1, si viene ), empezamos a desapilar (sacar cosas de la pila) hasta encontrar el paréntesis de apertura.
-  
-**E. El Estado Final (q_fin)**
-* Cuando se acaba la entrada y llegamos al fondo de la pila (Z), el autómata acepta la cadena, saca el fondo de pila y termina el proceso con éxito.
-* También si quedó algún símbolo en la pila desapilamos todo antes de sacar el Z del fondo de la pila.
-  
+**2. Estado q1**
+
+* **Manejo de Jerarquías:** Antes de leer el siguiente signo, el autómata revisa la pila. Si el operador que está en la cima de la pila tiene mayor o igual prioridad que el que viene, lo desapilamos sin leer un símbolo de la cadena. Son las transiciones: λ, * ; λ y λ, + ; λ
+* **Apilar y Regresar (+, *):** Leemos el operador de entrada, lo apilamos y nos regresamos a q0. Esto es así porque después de un operador, sí o sí necesitamos otro número.
+* **Cierre de paréntesis:** Si llega un paréntesis de cierre, nos quedamos en el mismo estado q1, sacando todo lo que haya en la pila hasta que aparezca el paréntesis de apertura que guardamos antes en q0 y ahi lo desapilamos.
+* **Transición final:** La flecha λ, λ ; λ nos dice que  la cadena de entrada se leyó completa, por eso pasamos a qfin.
+
+**3. Estado qfin**
+
+* **Limpieza:** Aquí pueden quedar operadores aún en la pila así que desapilamos los que queden para que al final solo quede Z al fondo, lo sacamos también y termina el proceso confirmando que la expresión es correcta. Como decimos si hubiera quedado algo en la pila, aquí es donde terminaríamos de vaciarlo antes de aceptar.
+
 ---
 # **Conclusiones**  
 
