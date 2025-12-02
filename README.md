@@ -316,6 +316,8 @@ g++ -o shunting_yard.exe shunting_yard.cpp -std=c++11
 ```cmd
 cl shunting_yard.cpp /EHsc
 ```
+# **Guia de ejecución**
+
 
 # **Resultados de prueba**  
 
