@@ -131,13 +131,13 @@ int precedence(char op) {
 
 **M = (Q, Σ, Γ, δ, q0, Z0, F)**
 
-- **Q** = {q0, q1, q_fin} → Conjunto de estados
+- **Q** = {q0, q1, qf} → Conjunto de estados
 - **Σ** = {números, +, -, *, /, (, )} → Alfabeto de entrada
 - **Γ** = {+, -, *, /, (, Z0} → Alfabeto de la pila
 - **δ** → Función de transición (ver tabla abajo)
 - **q0** → Estado inicial (lectura)
 - **Z0** → Símbolo inicial de la pila
-- **F** = {q_fin} → Estado final (aceptación)
+- **F** = {qf} → Estado final (aceptación)
 
 ---
 
@@ -161,7 +161,7 @@ int precedence(char op) {
 | δ₄ | q0 | ( | X | Apilar ( | q0 | (X |
 | δ₅ | q0 | ) | op | Desapilar a cola | q0 | X |
 | δ₆ | q0 | ) | ( | Eliminar ( | q0 | X |
-| δ₇ | q_fin | ε | op | Desapilar a cola | qf | X |
+| δ₇ | qf | ε | op | Desapilar a cola | qf | X |
 
 ---
 ## 4. Descripción Detallada de Transiciones
